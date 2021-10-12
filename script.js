@@ -66,31 +66,61 @@ const cardPairs2 = [
 let gameboard = document.getElementById("gameboard");
 renderCards();
 
-function renderCards() {
-  renderImageCards();
-  renderTextCards();
-}
+let cardsChosen = [];
+let cardsChosenId = [];
+const backOfCard =
+  "https://artbysofiajohnsson.files.wordpress.com/2021/10/rose-quartz-wordpress-400-square-1.png";
+
+function renderCards() {}
 
 function cardChosen() {
   let cardInput = document.getElementById();
 }
 
-function renderImageCards() {
+function createBoard() {
   cardPairs.forEach((pair) => {
     const card = document.createElement("li");
     const imageOnCard = document.createElement("img");
     imageOnCard.className = "imageCard";
     imageOnCard.src = pair.image;
+    imageOnCard.setAttribute("data-id", indexOf(pair));
     imageOnCard.alt = pair.text;
+    imageOnCard.addEventListener("click" /*flipCard()*/);
     gameboard.appendChild(card);
     card.appendChild(imageOnCard);
   });
 }
-function renderTextCards() {
-  cardPairs.forEach((pair) => {
-    const card = document.createElement("li");
-    card.className = "textCard";
-    card.innerHTML = pair.text;
-    gameboard.appendChild(card);
-  });
+
+//Check for card
+function checkForMatch() {}
+
+//Flipcard
+function flipCard() {
+  let cardId = this.getAttribute("data-id");
+  cardsChosen.push(cardArray[cardId].name);
+  cardsChosenId.push(cardId);
+  this.setAttribute("src", cardArray[cardId].image);
+  if (cardsChosen.length === 2) {
+    setTimeout(checkForMatch(), 500);
+  }
 }
+
+// function renderImageCards() {
+//   cardPairs.forEach((pair) => {
+//     const card = document.createElement("li");
+//     const imageOnCard = document.createElement("img");
+//     imageOnCard.className = "imageCard";
+//     imageOnCard.src = pair.image;
+//     imageOnCard.alt = pair.text;
+//     gameboard.appendChild(card);
+//     card.appendChild(imageOnCard);
+//   });
+// }
+// function renderTextCards() {
+//   cardPairs.forEach((pair) => {
+//     const card = document.createElement("li");
+//     card.className = "textCard";
+//     card.innerHTML = pair.text;
+//     gameboard.appendChild(card);
+//   });
+// }
