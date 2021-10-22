@@ -69,7 +69,7 @@ renderCards();
 let cardsChosen = [];
 let cardsChosenId = [];
 const backOfCard =
-  "https://artbysofiajohnsson.files.wordpress.com/2021/10/rose-quartz-wordpress-400-square-1.png";
+  "https://artbysofiajohnsson.files.wordpress.com/2021/10/knot-wordpress-400-square.png";
 
 function renderCards() {}
 
@@ -105,17 +105,17 @@ function flipCard() {
   }
 }
 
-// function renderImageCards() {
-//   cardPairs.forEach((pair) => {
-//     const card = document.createElement("li");
-//     const imageOnCard = document.createElement("img");
-//     imageOnCard.className = "imageCard";
-//     imageOnCard.src = pair.image;
-//     imageOnCard.alt = pair.text;
-//     gameboard.appendChild(card);
-//     card.appendChild(imageOnCard);
-//   });
-// }
+function renderImageCards() {
+  cardPairs.forEach((pair) => {
+    const card = document.createElement("li");
+    const imageOnCard = document.createElement("img");
+    imageOnCard.className = "imageCard";
+    imageOnCard.src = pair.image;
+    imageOnCard.alt = pair.text;
+    gameboard.appendChild(card);
+    card.appendChild(imageOnCard);
+  });
+}
 // function renderTextCards() {
 //   cardPairs.forEach((pair) => {
 //     const card = document.createElement("li");
