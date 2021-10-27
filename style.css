@@ -24,7 +24,7 @@ li {
 
 #gameboard {
   border: white solid;
-  width: 85%;
+  width: 80%;
   padding: 1rem;
   box-shadow: 8px 9px 26px 0 rgba(46, 61, 73, 0.5);
   display: flex;

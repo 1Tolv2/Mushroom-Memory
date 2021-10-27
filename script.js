@@ -91,8 +91,8 @@ function hideCards() {
       let secondCard = document.getElementById(card.secondId);
       firstCard.innerHTML = "";
       secondCard.innerHTML = "";
-      firstCard.style.backgroundColor = "green";
-      secondCard.style.backgroundColor = "green";
+      firstCard.style.backgroundColor = "lightgreen";
+      secondCard.style.backgroundColor = "lightgreen";
     });
     cardsActive.forEach((card) => {
       let firstCard = document.getElementById(card.firstId);
