@@ -34,32 +34,26 @@ li {
   margin: 0 0 3em;
 }
 
-.textCard,
 .card {
   width: 200px;
   height: 200px;
   margin: 25px;
-  list-style: none;
-  text-align: center;
-  border-radius: 4px;
-  border: white;
-  border-style: solid;
+  color: black;
+  background-color: white;
 }
 
 .imageCard {
   width: 190px;
   height: 190px;
-  margin-top: 8px;
-  margin-left: 5px;
+  margin-top: 0px;
+  margin-left: 0px;
+}
+
+.card,
+.imageCard {
   list-style: none;
   text-align: center;
   border-radius: 4px;
   border: white;
   border-style: solid;
-}
-
-.textCard,
-.card {
-  color: black;
-  background-color: white;
 }
