@@ -170,42 +170,38 @@ const cardPairs2 = [
       "https://artbysofiajohnsson.files.wordpress.com/2021/09/trattkantarell-wordpress-400-square.png",
   },
 ];
-let cardDeck = [];
 
-//Randomizes which deck to be used for the game
-function chooseDeck() {
-  const chosenDeck = Math.floor(Math.random() * 3);
-  if (chosenDeck == 1) {
-    return (cardDeck = cardPairs);
-  } else if (chosenDeck == 2) {
-    return (cardDeck = cardPairs2);
-  }
-}
-chooseDeck();
-
-let cardsActive = cardDeck;
+let cardsActive = [];
 let cardsChosen = [];
 let cardsWon = [];
-let cardSlot;
+
+/*Future fix:
+Another way of reloading only the gameboard content instead of the webpage*/
+function resetGame() {
+  setTimeout(() => {
+    alert(`Congratulations you have won!`);
+    location.reload();
+  }, 300);
+}
 
 function hideCards() {
+  /* Changes borders to green when a card is matched to inform the user
+  of the match */
   if (cardsWon.length <= 12) {
     cardsWon.forEach((card) => {
       document.getElementById(card.cardSlot).style.borderColor = "green";
     });
+
+    /*Empties the element if it is not a match */
     cardsActive.forEach((card) => {
       let slot = document.getElementById(card.cardSlot);
       slot.innerHTML = "";
-      setTimeout(() => {}, 1000);
     });
     cardsChosen = [];
   }
-  setTimeout(() => {
-    if (cardsWon.length == 12) {
-      alert(`Congratulations you have won!`);
-      location.reload();
-    }
-  }, 500);
+  if (cardsWon.length == 12) {
+    resetGame();
+  }
 }
 
 /*Future fixes:
@@ -215,14 +211,12 @@ function checkForMatch() {
   let secondCard;
 
   //Checks if the chosen cards are in the active array
-  let i = 0;
   cardsActive.forEach((card) => {
     if (card.cardSlot == cardsChosen[0]) {
       firstCard = card;
     } else if (card.cardSlot == cardsChosen[1]) {
       secondCard = card;
     }
-    i++;
   });
 
   if (firstCard.cardId === secondCard.cardId) {
@@ -232,21 +226,18 @@ function checkForMatch() {
     cardsActive.splice(cardsActive.indexOf(secondCard), 1);
     cardsChosen = [];
   }
-  console.log(cardsActive);
-  console.log(cardsWon);
   hideCards();
 }
 
 /* It shows the card by placing the image in on to the cardslot*/
 function showCard(id) {
-  cardSlot = document.getElementById(id);
-  console.log(cardSlot);
+  const cardPlacement = document.getElementById(id);
   cardsActive.forEach((card) => {
     if (card.cardSlot == id) {
       const imageCard = document.createElement("img");
       imageCard.src = card.image;
       imageCard.className = "imageCard";
-      cardSlot.appendChild(imageCard);
+      cardPlacement.appendChild(imageCard);
       if (cardsChosen.length == 2) {
         setTimeout(() => {
           checkForMatch();
@@ -260,9 +251,9 @@ function showCard(id) {
  To make sure only 2 cards are being checked at the same time */
 let displayCard = (element) => {
   const cardPicked = element.target.id;
+
   //Makes sure You can't pick already won cards or already chosen ones
   if (cardPicked !== "") {
-    console.log(cardPicked);
     if (cardsChosen.length < 2) {
       cardsChosen.push(cardPicked);
       showCard(cardPicked);
@@ -285,17 +276,35 @@ function shuffleCards(array) {
   }
   return array;
 }
+let cardDeck = [];
 
-let cards = [];
+//Randomizes which deck to be used for the current game
+function chooseDeck() {
+  let chosenDeck = Math.floor(Math.random() * 2);
+  console.log(chosenDeck + 1);
+  if (chosenDeck == 0) {
+    cardDeck = cardPairs;
+    return shuffleCards(cardDeck);
+  } else if (chosenDeck == 1) {
+    cardDeck = cardPairs2;
+    return shuffleCards(cardDeck);
+  } else cardDeck = cardPairs;
+  return shuffleCards(cardDeck);
+}
 
 /* The chosen decks cards get shuffled and then an event is added*/
 function renderGameBoard() {
-  shuffleCards(cardDeck);
-  cards = document.getElementsByClassName("card");
+  chooseDeck();
+  cardsActive = cardDeck;
   for (let i = 0; i <= cardDeck.length - 1; i++) {
-    cards[i].addEventListener("click", displayCard);
     cardsActive[i].cardSlot = i + 1;
   }
-}
 
+  let cards = [];
+  cards = document.getElementsByClassName("card");
+
+  for (let i = 0; i <= cardDeck.length - 1; i++) {
+    cards[i].addEventListener("click", displayCard);
+  }
+}
 renderGameBoard();
