@@ -280,21 +280,13 @@ let cardDeck = [];
 
 //Randomizes which deck to be used for the current game
 function chooseDeck() {
-  let chosenDeck = Math.floor(Math.random() * 2);
-  console.log(chosenDeck + 1);
-  if (chosenDeck == 0) {
-    cardDeck = cardPairs;
-    return shuffleCards(cardDeck);
-  } else if (chosenDeck == 1) {
-    cardDeck = cardPairs2;
-    return shuffleCards(cardDeck);
-  } else cardDeck = cardPairs;
-  return shuffleCards(cardDeck);
+  const randomPick = Math.floor(Math.random() * 2);
+  return randomPick == 1 ? shuffleCards(cardPairs) : shuffleCards(cardPairs2);
 }
 
 /* The chosen decks cards get shuffled and then an event is added*/
 function renderGameBoard() {
-  chooseDeck();
+  cardDeck = chooseDeck();
   cardsActive = cardDeck;
   for (let i = 0; i <= cardDeck.length - 1; i++) {
     cardsActive[i].cardSlot = i + 1;
