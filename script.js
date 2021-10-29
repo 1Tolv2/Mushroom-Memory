@@ -175,12 +175,17 @@ let cardsActive = [];
 let cardsChosen = [];
 let cardsWon = [];
 
-/*Future fixes:
-1. Another way of reloading only the gameboard content instead of the webpage */
+/* Future fixes:
+1. Improving the reset function */
 function resetGame() {
   setTimeout(() => {
     alert(`Congratulations you have won!`);
-    location.reload();
+    // location.reload(); // To reload entire website
+    cardsActive = cardsWon;
+    cardsWon = [];
+    hideCards();
+    cardsActive = [];
+    renderGameBoard();
   }, 300);
 }
 
@@ -196,6 +201,7 @@ function hideCards() {
     cardsActive.forEach((card) => {
       let slot = document.getElementById(card.cardSlot);
       slot.innerHTML = "";
+      slot.style.borderColor = "white";
     });
     cardsChosen = [];
   }
@@ -211,13 +217,17 @@ function checkForMatch() {
   let secondCard;
 
   //Checks if the chosen cards are in the active array
-  cardsActive.forEach((card) => {
-    if (card.cardSlot == cardsChosen[0]) {
-      firstCard = card;
-    } else if (card.cardSlot == cardsChosen[1]) {
-      secondCard = card;
-    }
-  });
+  firstCard = cardsActive.find((card) => card.cardSlot == cardsChosen[0]);
+  secondCard = cardsActive.find((card) => card.cardSlot == cardsChosen[1]);
+
+  // old code replaced by above code
+  // cardsActive.forEach((card) => {
+  //   if (card.cardSlot == cardsChosen[0]) {
+  //     firstCard = card;
+  //   } else if (card.cardSlot == cardsChosen[1]) {
+  //     secondCard = card;
+  //   }
+  // });
 
   if (firstCard.cardId === secondCard.cardId) {
     cardsWon.push(firstCard, secondCard);
@@ -247,18 +257,17 @@ function showCard(id) {
   });
 }
 
-/*Future fixes:
-1. The slot element is slightly visible behind the image so if you press on the border
-you can still pick already open and won cards. */
-
-/*Puts the chosen cards in an array that only allows 2 cards.
+/* Puts the chosen cards in an array that only allows 2 cards.
  It makes sure only 2 cards are being checked at the same time */
 const displayCard = (element) => {
   const cardPicked = element.target.id;
 
   /* Makes sure you can't pick already picked or won cards.
   Since the click would occur on the image element and that element does
-  not contain an id, only the card slot does.*/
+  not contain an id, only the card slot does.
+  Future fixes:
+  1. The slot element is slightly visible behind the image so if you click on the border
+  you can still pick already open and won cards.*/
   if (cardPicked !== "") {
     if (cardsChosen.length < 2) {
       cardsChosen.push(cardPicked);
@@ -291,14 +300,28 @@ function shuffleCards(array) {
 /* Randomizes which deck is used for a more fun playing experience */
 function chooseDeck() {
   const randomPick = Math.floor(Math.random() * 2);
-  return shuffleCards(randomPick == 1 ? deck1 : deck2);
+
+  /* The map function prevents from any changes being made to the original deck-arrays.
+  I had a previous issue that after passing the deck arrays directly to shuffleCards they 
+  would automatically empty themselves and you weren't able to play the same deck twice.
+  (This made me cry when I figured it out...) */
+  return shuffleCards(
+    randomPick == 1
+      ? (cardsActive = deck1.map((card) => {
+          return card;
+        }))
+      : (cardsActive = deck2.map((card) => {
+          return card;
+        }))
+  );
 }
 
 /* The deck gets chosen and the cards shuffled.
 The cards are then given an cardSlot value to represent which
-placement they have on the board*/
+placement they have on the board. */
 function renderGameBoard() {
   cardsActive = chooseDeck();
+
   for (let i = 0; i <= cardsActive.length - 1; i++) {
     cardsActive[i].cardSlot = i + 1;
   }
