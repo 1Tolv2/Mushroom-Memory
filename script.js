@@ -1,4 +1,4 @@
-const cardPairs = [
+const deck1 = [
   {
     cardId: 1,
     cardSlot: 0,
@@ -84,7 +84,7 @@ const cardPairs = [
       "https://artbysofiajohnsson.files.wordpress.com/2021/09/kantarell-wordpress-400-square.png",
   },
 ];
-const cardPairs2 = [
+const deck2 = [
   {
     cardId: 1,
     cardSlot: 0,
@@ -175,8 +175,8 @@ let cardsActive = [];
 let cardsChosen = [];
 let cardsWon = [];
 
-/*Future fix:
-Another way of reloading only the gameboard content instead of the webpage*/
+/*Future fixes:
+1. Another way of reloading only the gameboard content instead of the webpage */
 function resetGame() {
   setTimeout(() => {
     alert(`Congratulations you have won!`);
@@ -205,7 +205,7 @@ function hideCards() {
 }
 
 /*Future fixes:
- 1. Better comparison algorithm*/
+ 1. Better comparison algorithm */
 function checkForMatch() {
   let firstCard;
   let secondCard;
@@ -247,12 +247,18 @@ function showCard(id) {
   });
 }
 
-/*Puts the chosen cards in an array that only allows 2 cards
- To make sure only 2 cards are being checked at the same time */
-let displayCard = (element) => {
+/*Future fixes:
+1. The slot element is slightly visible behind the image so if you press on the border
+you can still pick already open and won cards. */
+
+/*Puts the chosen cards in an array that only allows 2 cards.
+ It makes sure only 2 cards are being checked at the same time */
+const displayCard = (element) => {
   const cardPicked = element.target.id;
 
-  //Makes sure You can't pick already won cards or already chosen ones
+  /* Makes sure you can't pick already picked or won cards.
+  Since the click would occur on the image element and that element does
+  not contain an id, only the card slot does.*/
   if (cardPicked !== "") {
     if (cardsChosen.length < 2) {
       cardsChosen.push(cardPicked);
@@ -260,6 +266,11 @@ let displayCard = (element) => {
     }
   }
 };
+
+const cards = document.getElementsByClassName("card");
+for (let i = 0; i <= cards.length - 1; i++) {
+  cards[i].addEventListener("click", displayCard);
+}
 
 //Fisher-Yates (Knuth) Shuffle
 function shuffleCards(array) {
@@ -276,27 +287,21 @@ function shuffleCards(array) {
   }
   return array;
 }
-let cardDeck = [];
 
-//Randomizes which deck to be used for the current game
+/* Randomizes which deck is used for a more fun playing experience */
 function chooseDeck() {
   const randomPick = Math.floor(Math.random() * 2);
-  return randomPick == 1 ? shuffleCards(cardPairs) : shuffleCards(cardPairs2);
+  return shuffleCards(randomPick == 1 ? deck1 : deck2);
 }
 
-/* The chosen decks cards get shuffled and then an event is added*/
+/* The deck gets chosen and the cards shuffled.
+The cards are then given an cardSlot value to represent which
+placement they have on the board*/
 function renderGameBoard() {
-  cardDeck = chooseDeck();
-  cardsActive = cardDeck;
-  for (let i = 0; i <= cardDeck.length - 1; i++) {
+  cardsActive = chooseDeck();
+  for (let i = 0; i <= cardsActive.length - 1; i++) {
     cardsActive[i].cardSlot = i + 1;
   }
-
-  let cards = [];
-  cards = document.getElementsByClassName("card");
-
-  for (let i = 0; i <= cardDeck.length - 1; i++) {
-    cards[i].addEventListener("click", displayCard);
-  }
 }
+
 renderGameBoard();
