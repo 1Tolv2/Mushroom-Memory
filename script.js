@@ -194,14 +194,15 @@ function hideCards() {
   of the match */
   if (cardsWon.length <= 12) {
     cardsWon.forEach((card) => {
-      document.getElementById(card.cardSlot).style.borderColor = "green";
+      // document.getElementById(card.cardSlot).childNodes[0].classList.add("winActive")
+      document.getElementById(card.cardSlot).classList.add("winActive")
     });
 
     /*Empties the element if it is not a match */
     cardsActive.forEach((card) => {
       let slot = document.getElementById(card.cardSlot);
       slot.innerHTML = "";
-      slot.style.borderColor = "white";
+      slot.classList.remove("winActive")
     });
     cardsChosen = [];
   }
@@ -283,14 +284,11 @@ for (let i = 0; i <= cards.length - 1; i++) {
 
 //Fisher-Yates (Knuth) Shuffle
 function shuffleCards(array) {
-  let currentIndex = array.length,
-    temporaryValue,
-    randomIndex;
+  let currentIndex = array.length;
 
   while (currentIndex !== 0) {
-    randomIndex = Math.floor(Math.random() * currentIndex);
-    currentIndex -= 1;
-    temporaryValue = array[currentIndex];
+    const randomIndex = Math.floor(Math.random() * currentIndex);
+    const temporaryValue = array[--currentIndex];
     array[currentIndex] = array[randomIndex];
     array[randomIndex] = temporaryValue;
   }
@@ -301,10 +299,7 @@ function shuffleCards(array) {
 function chooseDeck() {
   const randomPick = Math.floor(Math.random() * 2);
 
-  /* The map function prevents from any changes being made to the original deck-arrays.
-  I had a previous issue that after passing the deck arrays directly to shuffleCards they 
-  would automatically empty themselves and you weren't able to play the same deck twice.
-  (This made me cry when I figured it out...) */
+  /* The map function prevents from any changes being made to the original deck-arrays.*/
   return shuffleCards(
     randomPick == 1
       ? (cardsActive = deck1.map((card) => {

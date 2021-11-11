@@ -40,20 +40,33 @@ li {
   margin: 20px;
   color: black;
   background-color: white;
+  
 }
 
 .imageCard {
-  width: 190px;
-  height: 190px;
-  margin-top: 0px;
-  margin-left: 0px;
+  width: 90%;
+  height: auto;
+  padding: 10px;
 }
 
-.card,
-.imageCard {
+.card {
   list-style: none;
   text-align: center;
   border-radius: 4px;
-  border: white;
-  border-style: solid;
+}
+
+.winActive {
+  animation: winAnimation 0.4s ease-in-out;
+}
+
+@keyframes winAnimation {
+  0% {
+    outline: 4px solid white;
+  }
+  50% {
+    outline: 4px solid green;
+  }
+  100% {
+    outline: 4px solid white;
+  }
 }
