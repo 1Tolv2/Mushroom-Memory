@@ -76,4 +76,20 @@ li {
 
 .winActive {
   outline: 4px solid green;
+  animation: winAnimation 0.4s linear 0s 1 normal forwards;
+}
+
+@keyframes winAnimation {
+  0% {
+    outline-color: white;
+  }
+  50% {
+    outline-color: green;
+  }
+  75% {
+    outline-color: white;
+  }
+  100% {
+    outline-color: green;
+  }
 }
