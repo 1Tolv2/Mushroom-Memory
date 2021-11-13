@@ -174,17 +174,43 @@ const deck2 = [
 let cardsActive = [];
 let cardsChosen = [];
 let cardsWon = [];
+let scoreBoardText = document.getElementById("scoreBoardText");
+let highscore = 0;
+let numberOfTries = 0;
 
+function updateScoreBoardText(highscore, tries) {
+  scoreBoardText.innerHTML = `Highscore: ${highscore}<br />
+Tries: ${tries}`;
+}
+function updateScoreBoard() {
+  console.log(cardsActive.length)
+  if (cardsActive.length == 0) {
+    if (numberOfTries < highscore || highscore == 0) {
+      highscore = numberOfTries;
+      updateScoreBoardText(highscore, numberOfTries);
+      numberOfTries = 0;
+    } else if (numberOfTries >= highscore && highscore != 0) {
+      numberOfTries = 0;
+      updateScoreBoardText(highscore, numberOfTries);
+    }
+  } else if (cardsWon.length < 12) {
+    numberOfTries++;
+    updateScoreBoardText(highscore, numberOfTries);
+  } else {
+    updateScoreBoardText(highscore, 0)
+  }
+}
 /* Future fixes:
 1. Improving the reset function */
 function resetGame() {
   setTimeout(() => {
     alert(`Congratulations you have won!`);
-    // location.reload(); // To reload entire website
     cardsActive = cardsWon;
+    updateScoreBoard();
     cardsWon = [];
     hideCards();
     cardsActive = [];
+    
     renderGameBoard();
   }, 300);
 }
@@ -194,15 +220,17 @@ function hideCards() {
   of the match */
   if (cardsWon.length <= 12) {
     cardsWon.forEach((card) => {
-      // document.getElementById(card.cardSlot).childNodes[0].classList.add("winActive")
-      document.getElementById(card.cardSlot).classList.add("winActive")
+      document
+        .getElementById(card.cardSlot)
+        .childNodes[0].classList.add("winActive");
+      // document.getElementById(card.cardSlot).classList.add("winActive")
     });
 
     /*Empties the element if it is not a match */
     cardsActive.forEach((card) => {
       let slot = document.getElementById(card.cardSlot);
       slot.innerHTML = "";
-      slot.classList.remove("winActive")
+      slot.classList.remove("winActive");
     });
     cardsChosen = [];
   }
@@ -237,6 +265,7 @@ function checkForMatch() {
     cardsActive.splice(cardsActive.indexOf(secondCard), 1);
     cardsChosen = [];
   }
+  updateScoreBoard();
   hideCards();
 }
 
@@ -265,10 +294,7 @@ const displayCard = (element) => {
 
   /* Makes sure you can't pick already picked or won cards.
   Since the click would occur on the image element and that element does
-  not contain an id, only the card slot does.
-  Future fixes:
-  1. The slot element is slightly visible behind the image so if you click on the border
-  you can still pick already open and won cards.*/
+  not contain an id, only the card slot does. */
   if (cardPicked !== "") {
     if (cardsChosen.length < 2) {
       cardsChosen.push(cardPicked);
