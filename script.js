@@ -183,7 +183,7 @@ function updateScoreBoardText(highscore, tries) {
 Tries: ${tries}`;
 }
 function updateScoreBoard() {
-  console.log(cardsActive.length)
+  numberOfTries++;
   if (cardsActive.length == 0) {
     if (numberOfTries < highscore || highscore == 0) {
       highscore = numberOfTries;
@@ -194,7 +194,6 @@ function updateScoreBoard() {
       updateScoreBoardText(highscore, numberOfTries);
     }
   } else if (cardsWon.length < 12) {
-    numberOfTries++;
     updateScoreBoardText(highscore, numberOfTries);
   } else {
     updateScoreBoardText(highscore, 0)
@@ -210,7 +209,6 @@ function resetGame() {
     cardsWon = [];
     hideCards();
     cardsActive = [];
-    
     renderGameBoard();
   }, 300);
 }
@@ -223,7 +221,6 @@ function hideCards() {
       document
         .getElementById(card.cardSlot)
         .childNodes[0].classList.add("winActive");
-      // document.getElementById(card.cardSlot).classList.add("winActive")
     });
 
     /*Empties the element if it is not a match */
@@ -257,7 +254,6 @@ function checkForMatch() {
   //     secondCard = card;
   //   }
   // });
-
   if (firstCard.cardId === secondCard.cardId) {
     cardsWon.push(firstCard, secondCard);
     //Finds where the matched cards are placed and removes them from being in the active array
@@ -269,7 +265,7 @@ function checkForMatch() {
   hideCards();
 }
 
-/* It shows the card by placing the image in on to the cardslot*/
+/* It shows the card by placing the image on to the cardslot*/
 function showCard(id) {
   const cardPlacement = document.getElementById(id);
   cardsActive.forEach((card) => {
