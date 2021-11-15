@@ -1,0 +1,87 @@
+body {
+  background-color: #3f7e49;
+  font-family: "calibri", arial;
+  font-size: 20px;
+  padding: 0;
+  margin: 0;
+}
+
+h1 {
+  font-size: 2.5em;
+  border: 5px solid white;
+  padding: 2px 10px;
+  color: white;
+  background-color: #50945f;
+  box-shadow: 5px 5px 5px #275035;
+}
+
+li {
+  list-style: none;
+}
+
+#wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+#wrapper .scoreBoard {
+  display: flex;
+  justify-content: flex-start;
+  width: 80%;
+  margin-top: 20px;
+}
+#wrapper .scoreBoard p {
+  background-color: white;
+  margin: 0;
+  padding: 10px;
+  outline: 5px solid white;
+  border-radius: 2px 2px 0 0;
+}
+#wrapper #gameboard {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  align-items: center;
+  width: 80%;
+  padding: 1rem 0;
+  border: 5px solid white;
+  margin-block-start: 0%;
+  background-color: #50945f;
+  box-shadow: 5px 5px 5px #275035;
+}
+#wrapper #gameboard .card {
+  width: 200px;
+  height: 200px;
+  background-color: white;
+  margin: 20px;
+  border-radius: 4px;
+}
+#wrapper #gameboard .imageCard {
+  width: 90%;
+  height: auto;
+  padding: 10px;
+  border-radius: 4px;
+}
+
+.winActive {
+  outline: 4px solid #00ff73;
+  animation: winAnimation 0.4s linear 0s 1 normal forwards;
+}
+
+@keyframes winAnimation {
+  0% {
+    outline-color: white;
+  }
+  50% {
+    outline-color: #00ff73;
+  }
+  75% {
+    outline-color: white;
+  }
+  100% {
+    outline-color: #00ff73;
+  }
+}
+
+/*# sourceMappingURL=styles.css.map */

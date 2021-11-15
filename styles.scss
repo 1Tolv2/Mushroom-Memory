@@ -1,0 +1,90 @@
+$primaryColour: rgb(63, 126, 73);
+$secondaryColour: rgb(80, 148, 95);
+$accentColour: white;
+$winColour: rgb(0, 255, 115);
+
+$mainBorder: 5px solid $accentColour;
+
+
+body {
+  background-color: $primaryColour;
+  font-family: "calibri", arial;
+  font-size: 20px;
+  padding: 0;
+  margin: 0;
+}
+h1 {
+  font-size: 2.5em;
+  border: $mainBorder;
+  padding: 2px 10px;
+  color: white;
+  background-color: $secondaryColour;
+  box-shadow: 5px 5px 5px rgb(39, 80, 53);
+}
+li {
+  list-style: none;
+}
+#wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  .scoreBoard {
+    display: flex;
+    justify-content: flex-start;
+    width: 80%;
+    margin-top: 20px;
+    p {
+      background-color: white;
+      margin: 0;
+      padding: 10px;
+      outline: 5px solid $accentColour;
+        border-radius: 2px 2px 0 0 ;
+    }
+  }
+  #gameboard {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    align-items: center;
+    width: 80%;
+    padding: 1rem 0;
+    border: $mainBorder;
+    margin-block-start: 0%;
+    background-color: $secondaryColour;
+    box-shadow: 5px 5px 5px rgb(39, 80, 53);
+    .card {
+      width: 200px;
+      height: 200px;
+      background-color: white;
+      margin: 20px;
+      border-radius: 4px;
+    }
+    .imageCard {
+        width: 90%;
+        height: auto;
+        padding: 10px;
+        border-radius: 4px;
+      }
+  }
+}
+.winActive {
+    outline: 4px solid $winColour;
+    animation: winAnimation 0.4s linear 0s 1 normal forwards;
+  }
+  
+  @keyframes winAnimation {
+    0% {
+      outline-color: white;
+    }
+    50% {
+      outline-color: $winColour;
+    }
+    75% {
+      outline-color: white;
+    }
+    100% {
+      outline-color: $winColour;
+    }
+  }
+  
