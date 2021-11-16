@@ -210,6 +210,7 @@ function resetGame() {
   game.cardsActive = game.cardsWon;
   hideCards();
   game.restartGame();
+  updateScoreBoardText()
   renderGameBoard();
 }
 
