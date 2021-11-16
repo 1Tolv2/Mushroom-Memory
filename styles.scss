@@ -5,7 +5,6 @@ $winColour: rgb(0, 255, 115);
 
 $mainBorder: 5px solid $accentColour;
 
-
 body {
   background-color: $primaryColour;
   font-family: "calibri", arial;
@@ -21,8 +20,50 @@ h1 {
   background-color: $secondaryColour;
   box-shadow: 5px 5px 5px rgb(39, 80, 53);
 }
-li {
-  list-style: none;
+img {
+  user-select: none;
+  -webkit-user-drag: none;
+}
+
+#winBlock {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: black;
+  opacity: 0.5;
+}
+
+#winBox {
+  display: none;
+  position: fixed;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 500px;
+  height: 200px;
+  margin: auto;
+  background-color: rgb(255, 209, 2);
+  border: $mainBorder;
+  z-index: 1;
+  div {
+    display: flex;
+    height: 100%;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    h2 {
+      width: 100%;
+      font-size: 2.5em;
+      margin-bottom: 20px;
+    }
+    p {
+      width: 100%;
+    }
+  }
 }
 #wrapper {
   display: flex;
@@ -34,12 +75,14 @@ li {
     justify-content: flex-start;
     width: 80%;
     margin-top: 20px;
+    max-width: 1150px;
+  min-width: 500px;
     p {
       background-color: white;
       margin: 0;
       padding: 10px;
       outline: 5px solid $accentColour;
-        border-radius: 2px 2px 0 0 ;
+      border-radius: 2px 2px 0 0;
     }
   }
   #gameboard {
@@ -48,6 +91,8 @@ li {
     justify-content: space-around;
     align-items: center;
     width: 80%;
+    max-width: 1150px;
+  min-width: 500px;
     padding: 1rem 0;
     border: $mainBorder;
     margin-block-start: 0%;
@@ -60,31 +105,35 @@ li {
       margin: 20px;
       border-radius: 4px;
     }
-    .imageCard {
-        width: 90%;
-        height: auto;
-        padding: 10px;
-        border-radius: 4px;
-      }
   }
 }
 .winActive {
-    outline: 4px solid $winColour;
-    animation: winAnimation 0.4s linear 0s 1 normal forwards;
+  outline: 4px solid $winColour;
+  animation: winAnimation 0.4s linear 0s 1 normal forwards;
+}
+
+@media screen and (max-width: 900px) {
+  h1 {
+    font-size: 2em;
   }
-  
-  @keyframes winAnimation {
-    0% {
-      outline-color: white;
-    }
-    50% {
-      outline-color: $winColour;
-    }
-    75% {
-      outline-color: white;
-    }
-    100% {
-      outline-color: $winColour;
-    }
+}
+@media screen and (max-width: 700px) {
+  h1 {
+    font-size: 1.5em;
   }
-  
+}
+
+@keyframes winAnimation {
+  0% {
+    outline-color: white;
+  }
+  50% {
+    outline-color: $winColour;
+  }
+  75% {
+    outline-color: white;
+  }
+  100% {
+    outline-color: $winColour;
+  }
+}

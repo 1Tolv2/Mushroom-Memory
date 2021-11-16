@@ -1,76 +1,65 @@
 const deck1 = [
   {
-    cardId: 1,
     cardSlot: 0,
     text: "Blodriska",
     image:
       "https://artbysofiajohnsson.files.wordpress.com/2021/09/blodriska-wordpress-400-square.png",
   },
   {
-    cardId: 2,
     cardSlot: 0,
     text: "Bläcksvamp",
     image:
       "https://artbysofiajohnsson.files.wordpress.com/2021/09/blacksvamp-wordpress-400-square.png",
   },
   {
-    cardId: 3,
     cardSlot: 0,
     text: "Föränderlig tofsskivling",
     image:
       "https://artbysofiajohnsson.files.wordpress.com/2021/09/foranderlig-tofsskivling-wordpress-400-square.png",
   },
   {
-    cardId: 4,
     cardSlot: 0,
     text: "Grå bläcksvamp",
     image:
       "https://artbysofiajohnsson.files.wordpress.com/2021/09/gra-blacksvamp-wordpress-400-square-.png",
   },
   {
-    cardId: 5,
     cardSlot: 0,
     text: "Hattmurkla",
     image:
       "https://artbysofiajohnsson.files.wordpress.com/2021/09/hattmurkla-wordpress-400-square-.png",
   },
   {
-    cardId: 6,
     cardSlot: 0,
     text: "Kantarell",
     image:
       "https://artbysofiajohnsson.files.wordpress.com/2021/09/kantarell-wordpress-400-square.png",
   },
   {
-    cardId: 1,
     cardSlot: 0,
     text: "Blodriska",
     image:
       "https://artbysofiajohnsson.files.wordpress.com/2021/09/blodriska-wordpress-400-square.png",
   },
   {
-    cardId: 2,
     cardSlot: 0,
     text: "Bläcksvamp",
     image:
       "https://artbysofiajohnsson.files.wordpress.com/2021/09/blacksvamp-wordpress-400-square.png",
   },
   {
-    cardId: 3,
     cardSlot: 0,
     text: "Föränderlig tofsskivling",
     image:
       "https://artbysofiajohnsson.files.wordpress.com/2021/09/foranderlig-tofsskivling-wordpress-400-square.png",
   },
   {
-    cardId: 4,
     cardSlot: 0,
     text: "Grå bläcksvamp",
     image:
       "https://artbysofiajohnsson.files.wordpress.com/2021/09/gra-blacksvamp-wordpress-400-square-.png",
   },
   {
-    cardId: 5,
     cardSlot: 0,
     text: "Hattmurkla",
     image:
@@ -86,84 +75,72 @@ const deck1 = [
 ];
 const deck2 = [
   {
-    cardId: 1,
     cardSlot: 0,
     text: "Karljohansvamp",
     image:
       "https://artbysofiajohnsson.files.wordpress.com/2021/09/karljohan-wordpress-400-square-.png",
   },
   {
-    cardId: 2,
     cardSlot: 0,
     text: "Murkla",
     image:
       "https://artbysofiajohnsson.files.wordpress.com/2021/09/murkla-wordpress-400-square-.png",
   },
   {
-    cardId: 3,
     cardSlot: 0,
     text: "Räfflad nagelskivling",
     image:
       "https://artbysofiajohnsson.files.wordpress.com/2021/09/rafflad-nagelskivling-wordpress-400-square.png",
   },
   {
-    cardId: 4,
     cardSlot: 0,
     text: "Stolt fjällskivling",
     image:
       "https://artbysofiajohnsson.files.wordpress.com/2021/09/stolt-fjallskivling-wordpress-400-square.png",
   },
   {
-    cardId: 5,
     cardSlot: 0,
     text: "Stort haröra",
     image:
       "https://artbysofiajohnsson.files.wordpress.com/2021/09/stort-harora-wordpress-400-square-.png",
   },
   {
-    cardId: 6,
     cardSlot: 0,
     text: "Trattkantarell",
     image:
       "https://artbysofiajohnsson.files.wordpress.com/2021/09/trattkantarell-wordpress-400-square.png",
   },
   {
-    cardId: 1,
     cardSlot: 0,
     text: "Karljohansvamp",
     image:
       "https://artbysofiajohnsson.files.wordpress.com/2021/09/karljohan-wordpress-400-square-.png",
   },
   {
-    cardId: 2,
     cardSlot: 0,
     text: "Murkla",
     image:
       "https://artbysofiajohnsson.files.wordpress.com/2021/09/murkla-wordpress-400-square-.png",
   },
   {
-    cardId: 3,
     cardSlot: 0,
     text: "Räfflad nagelskivling",
     image:
       "https://artbysofiajohnsson.files.wordpress.com/2021/09/rafflad-nagelskivling-wordpress-400-square.png",
   },
   {
-    cardId: 4,
     cardSlot: 0,
     text: "Stolt fjällskivling",
     image:
       "https://artbysofiajohnsson.files.wordpress.com/2021/09/stolt-fjallskivling-wordpress-400-square.png",
   },
   {
-    cardId: 5,
     cardSlot: 0,
     text: "Stort haröra",
     image:
       "https://artbysofiajohnsson.files.wordpress.com/2021/09/stort-harora-wordpress-400-square-.png",
   },
   {
-    cardId: 6,
     cardSlot: 0,
     text: "Trattkantarell",
     image:
@@ -171,176 +148,162 @@ const deck2 = [
   },
 ];
 
-let cardsActive = [];
-let cardsChosen = [];
-let cardsWon = [];
-let scoreBoardText = document.getElementById("scoreBoardText");
-let highscore = 0;
-let numberOfTries = 0;
+class GameBoard {
+  constructor() {
+    this.currentDeck = this.pickDeck();
+    this.cardsActive = this.currentDeck.map((card) => {
+      return card;
+    });
+    this.cardsPendingForMatch = [];
+    this.cardsWon = [];
+    this.attempts = 0;
+    this.highscore = 0;
+  }
 
-function updateScoreBoardText(highscore, tries) {
-  scoreBoardText.innerHTML = `Highscore: ${highscore}<br />
-Tries: ${tries}`;
-}
-function updateScoreBoard() {
-  numberOfTries++;
-  if (cardsActive.length == 0) {
-    if (numberOfTries < highscore || highscore == 0) {
-      highscore = numberOfTries;
-      updateScoreBoardText(highscore, numberOfTries);
-      numberOfTries = 0;
-    } else if (numberOfTries >= highscore && highscore != 0) {
-      numberOfTries = 0;
-      updateScoreBoardText(highscore, numberOfTries);
+  moveMatchedCards(firstCard, secondCard) {
+    this.cardsWon.push(firstCard, secondCard);
+    //Finds where the matched cards are placed and removes them from being in the active array
+    this.cardsActive.splice(this.cardsActive.indexOf(firstCard), 1);
+    this.cardsActive.splice(this.cardsActive.indexOf(secondCard), 1);
+  }
+  //Fisher-Yates (Knuth) Shuffle
+  shuffleCards(array) {
+    let currentIndex = array.length;
+
+    while (currentIndex !== 0) {
+      const randomIndex = Math.floor(Math.random() * currentIndex);
+      const temporaryValue = array[--currentIndex];
+      array[currentIndex] = array[randomIndex];
+      array[randomIndex] = temporaryValue;
     }
-  } else if (cardsWon.length < 12) {
-    updateScoreBoardText(highscore, numberOfTries);
-  } else {
-    updateScoreBoardText(highscore, 0)
+    return array;
+  }
+  /* Randomizes which deck is used for a more fun playing experience */
+  pickDeck() {
+    const randomPick = Math.floor(Math.random() * 2);
+    return this.shuffleCards(
+      randomPick == 1
+        ? (this.currentDeck = deck1.map((card) => {
+            return card;
+          }))
+        : (this.currentDeck = deck2.map((card) => {
+            return card;
+          }))
+    );
+  }
+  restartGame() {
+    this.currentDeck = this.pickDeck();
+    this.cardsActive = this.currentDeck.map((card) => {
+      return card;
+    });
+    this.cardsPendingForMatch = [];
+    this.cardsWon = [];
+    this.attempts = 0;
   }
 }
-/* Future fixes:
-1. Improving the reset function */
+
+let game = new GameBoard();
+
 function resetGame() {
-  setTimeout(() => {
-    alert(`Congratulations you have won!`);
-    cardsActive = cardsWon;
-    updateScoreBoard();
-    cardsWon = [];
-    hideCards();
-    cardsActive = [];
-    renderGameBoard();
-  }, 300);
+  document.getElementById("winBox").style.display = "none"
+      document.getElementById("winBlock").style.display = "none"
+  game.cardsActive = game.cardsWon;
+  hideCards();
+  game.restartGame();
+  renderGameBoard();
+}
+
+function showWinningMessage() {
+  document.getElementById("winBox").style.display = "block";
+  document.getElementById("winBlock").style.display = "block";
+}
+
+function updateScoreBoardText() {
+  scoreBoardText.innerHTML = `<strong>Highscore:</strong> ${game.highscore}<br />
+  <strong>Tries:</strong> ${game.attempts}`;
+}
+
+//After win the scoreboard is slow to update so you don't see the score until you pressed ok on the alert.
+function updateScoreBoard() {
+  const gameFinished = 12;
+  if (game.cardsWon.length == gameFinished) {
+    if (game.attempts < game.highscore || game.highscore == 0) {
+      game.highscore = game.attempts;
+      game.attempts = 0;
+      updateScoreBoardText();
+    }
+    setTimeout(showWinningMessage(), 300);
+  }
+  updateScoreBoardText();
 }
 
 function hideCards() {
-  /* Changes borders to green when a card is matched to inform the user
-  of the match */
-  if (cardsWon.length <= 12) {
-    cardsWon.forEach((card) => {
-      document
-        .getElementById(card.cardSlot)
-        .childNodes[0].classList.add("winActive");
-    });
-
-    /*Empties the element if it is not a match */
-    cardsActive.forEach((card) => {
-      let slot = document.getElementById(card.cardSlot);
-      slot.innerHTML = "";
-      slot.classList.remove("winActive");
-    });
-    cardsChosen = [];
-  }
-  if (cardsWon.length == 12) {
-    resetGame();
-  }
-}
-
-/*Future fixes:
- 1. Better comparison algorithm */
-function checkForMatch() {
-  let firstCard;
-  let secondCard;
-
-  //Checks if the chosen cards are in the active array
-  firstCard = cardsActive.find((card) => card.cardSlot == cardsChosen[0]);
-  secondCard = cardsActive.find((card) => card.cardSlot == cardsChosen[1]);
-
-  // old code replaced by above code
-  // cardsActive.forEach((card) => {
-  //   if (card.cardSlot == cardsChosen[0]) {
-  //     firstCard = card;
-  //   } else if (card.cardSlot == cardsChosen[1]) {
-  //     secondCard = card;
-  //   }
-  // });
-  if (firstCard.cardId === secondCard.cardId) {
-    cardsWon.push(firstCard, secondCard);
-    //Finds where the matched cards are placed and removes them from being in the active array
-    cardsActive.splice(cardsActive.indexOf(firstCard), 1);
-    cardsActive.splice(cardsActive.indexOf(secondCard), 1);
-    cardsChosen = [];
-  }
-  updateScoreBoard();
-  hideCards();
-}
-
-/* It shows the card by placing the image on to the cardslot*/
-function showCard(id) {
-  const cardPlacement = document.getElementById(id);
-  cardsActive.forEach((card) => {
-    if (card.cardSlot == id) {
-      const imageCard = document.createElement("img");
-      imageCard.src = card.image;
-      imageCard.className = "imageCard";
-      cardPlacement.appendChild(imageCard);
-      if (cardsChosen.length == 2) {
-        setTimeout(() => {
-          checkForMatch();
-        }, 500);
-      }
-    }
+  game.cardsActive.forEach((card) => {
+    const cardSlot = document.getElementById(card.cardSlot);
+    cardSlot.src = "blankImage.png";
+    cardSlot.classList.remove("winActive", "picked");
   });
 }
 
-/* Puts the chosen cards in an array that only allows 2 cards.
- It makes sure only 2 cards are being checked at the same time */
-const displayCard = (element) => {
-  const cardPicked = element.target.id;
+function markAsWon(firstCard, secondCard) {
+  game.cardsPendingForMatch.forEach((id) => {
+    document.getElementById(id).classList.add("winActive");
+  });
+  game.moveMatchedCards(firstCard, secondCard);
+}
 
-  /* Makes sure you can't pick already picked or won cards.
-  Since the click would occur on the image element and that element does
-  not contain an id, only the card slot does. */
-  if (cardPicked !== "") {
-    if (cardsChosen.length < 2) {
-      cardsChosen.push(cardPicked);
+//Checks if the first and second card has the same cardId
+function checkForMatch() {
+  game.attempts++;
+  let firstCard = game.cardsActive.find(
+    (card) => card.cardSlot == game.cardsPendingForMatch[0]
+  );
+  let secondCard = game.cardsActive.find(
+    (card) => card.cardSlot == game.cardsPendingForMatch[1]
+  );
+  firstCard.text === secondCard.text
+    ? markAsWon(firstCard, secondCard)
+    : hideCards();
+  game.cardsPendingForMatch = [];
+  updateScoreBoard();
+}
+
+/*shows the card by changing the image to the card with that slot id */
+function showCard(cardPicked) {
+  const card = game.cardsActive.find((card) => card.cardSlot == cardPicked.id);
+  cardPicked.src = card.image;
+  if (game.cardsPendingForMatch.length === 2) {
+    setTimeout(checkForMatch, 300);
+  }
+}
+
+/*if the card does not have the picked class it is then added 
+in the pending match array */
+const displayCard = (element) => {
+  const cardPicked = element.target;
+
+  if (!cardPicked.classList.contains("picked")) {
+    if (game.cardsPendingForMatch.length < 2) {
+      game.cardsPendingForMatch.push(cardPicked.id);
+      cardPicked.classList.add("picked");
       showCard(cardPicked);
     }
   }
 };
+
+document.getElementById("winBlock").addEventListener("click", resetGame)
+  
 
 const cards = document.getElementsByClassName("card");
 for (let i = 0; i <= cards.length - 1; i++) {
   cards[i].addEventListener("click", displayCard);
 }
 
-//Fisher-Yates (Knuth) Shuffle
-function shuffleCards(array) {
-  let currentIndex = array.length;
-
-  while (currentIndex !== 0) {
-    const randomIndex = Math.floor(Math.random() * currentIndex);
-    const temporaryValue = array[--currentIndex];
-    array[currentIndex] = array[randomIndex];
-    array[randomIndex] = temporaryValue;
-  }
-  return array;
-}
-
-/* Randomizes which deck is used for a more fun playing experience */
-function chooseDeck() {
-  const randomPick = Math.floor(Math.random() * 2);
-
-  /* The map function prevents from any changes being made to the original deck-arrays.*/
-  return shuffleCards(
-    randomPick == 1
-      ? (cardsActive = deck1.map((card) => {
-          return card;
-        }))
-      : (cardsActive = deck2.map((card) => {
-          return card;
-        }))
-  );
-}
-
-/* The deck gets chosen and the cards shuffled.
-The cards are then given an cardSlot value to represent which
+/*The cards are given a cardSlot value to represent which
 placement they have on the board. */
 function renderGameBoard() {
-  cardsActive = chooseDeck();
-
-  for (let i = 0; i <= cardsActive.length - 1; i++) {
-    cardsActive[i].cardSlot = i + 1;
+  for (let i = 0; i <= game.currentDeck.length - 1; i++) {
+    game.currentDeck[i].cardSlot = i + 1;
   }
 }
 
