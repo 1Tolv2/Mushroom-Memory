@@ -241,7 +241,7 @@ function updateScoreBoard() {
 function hideCards() {
   game.cardsActive.forEach((card) => {
     const cardSlot = document.getElementById(card.cardSlot);
-    cardSlot.src = "blankImage.png";
+    cardSlot.src = "https://upload.wikimedia.org/wikipedia/commons/thumb/7/70/Solid_white.svg/768px-Solid_white.svg.png";
     cardSlot.classList.remove("winActive", "picked");
   });
 }
