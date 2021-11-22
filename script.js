@@ -274,7 +274,7 @@ function showCard(cardPicked) {
   const card = game.cardsActive.find((card) => card.cardSlot == cardPicked.id);
   cardPicked.src = card.image;
   if (game.cardsPendingForMatch.length === 2) {
-    setTimeout(checkForMatch, 300);
+    setTimeout(checkForMatch, 500);
   }
 }
 
