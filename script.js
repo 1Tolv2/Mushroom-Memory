@@ -205,12 +205,12 @@ class GameBoard {
 let game = new GameBoard();
 
 function resetGame() {
-  document.getElementById("winBox").style.display = "none"
-      document.getElementById("winBlock").style.display = "none"
+  document.getElementById("winBox").style.display = "none";
+  document.getElementById("winBlock").style.display = "none";
   game.cardsActive = game.cardsWon;
   hideCards();
   game.restartGame();
-  updateScoreBoardText()
+  updateScoreBoardText();
   renderGameBoard();
 }
 
@@ -241,7 +241,8 @@ function updateScoreBoard() {
 function hideCards() {
   game.cardsActive.forEach((card) => {
     const cardSlot = document.getElementById(card.cardSlot);
-    cardSlot.src = "https://upload.wikimedia.org/wikipedia/commons/thumb/7/70/Solid_white.svg/768px-Solid_white.svg.png";
+    cardSlot.src =
+      "https://upload.wikimedia.org/wikipedia/commons/thumb/7/70/Solid_white.svg/768px-Solid_white.svg.png";
     cardSlot.classList.remove("winActive", "picked");
   });
 }
@@ -274,7 +275,7 @@ function showCard(cardPicked) {
   const card = game.cardsActive.find((card) => card.cardSlot == cardPicked.id);
   cardPicked.src = card.image;
   if (game.cardsPendingForMatch.length === 2) {
-    setTimeout(checkForMatch, 500);
+    setTimeout(checkForMatch, 900);
   }
 }
 
@@ -292,8 +293,7 @@ const displayCard = (element) => {
   }
 };
 
-document.getElementById("winBlock").addEventListener("click", resetGame)
-  
+document.getElementById("winBlock").addEventListener("click", resetGame);
 
 const cards = document.getElementsByClassName("card");
 for (let i = 0; i <= cards.length - 1; i++) {
